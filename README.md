@@ -24,7 +24,7 @@ architecting qureos-frontend/    shipping vargo.in/    open to Senior Frontend/F
 
 ## 🏗️ Systems I've Actually Built
 
-Not "I know React" — here's the real shape of two systems I designed and shipped in production.
+Not "I know React" — here's the real shape of systems I designed and shipped in production.
 
 <table>
 <tr><td>
@@ -63,6 +63,22 @@ flowchart TB
 ```
 
 </td></tr>
+<tr><td>
+
+**QBrain Registry** — org-wide, browsable graph of every AI-agent Skill at Qureos. Went from zero to the shared source of truth in a month; skills are now contributed by multiple engineers, not just me.
+
+```mermaid
+flowchart LR
+    Eng["Engineer"] -->|"branch + PR"| Skill["skills/&lt;owner&gt;/&lt;slug&gt;/SKILL.md"]
+    NonEng["Non-engineer"] -->|"'Add Skill' form"| App["QBrain App"]
+    App -->|"opens PR on their behalf"| Skill
+    Skill --> CO{{"CODEOWNERS auto-routes review"}}
+    CO --> Merge["Merge → Registry"]
+    Merge --> Graph["Browsable Skill Graph"]
+    Graph -->|"copy owner/slug"| CLI["Claude Code / MCP"]
+```
+
+</td></tr>
 </table>
 
 <br/>
@@ -70,7 +86,7 @@ flowchart TB
 ## 📈 Case Studies, Not Claims
 
 <table>
-<tr><td width="33%" valign="top">
+<tr><td width="50%" valign="top">
 
 **46% smaller, 25% faster**
 <br/><br/>
@@ -80,7 +96,7 @@ flowchart TB
 <br/>
 *Result:* 46% smaller bundle, 25% faster overall performance, org-wide.
 
-</td><td width="33%" valign="top">
+</td><td width="50%" valign="top">
 
 **20+ concurrent jobs, 0 downtime**
 <br/><br/>
@@ -90,7 +106,8 @@ flowchart TB
 <br/>
 *Result:* sustained 20+ concurrent jobs with zero downtime.
 
-</td><td width="33%" valign="top">
+</td></tr>
+<tr><td width="50%" valign="top">
 
 **Architecture that can't decay**
 <br/><br/>
@@ -99,6 +116,16 @@ flowchart TB
 *Approach:* authored ADRs for a two-axis structure (FSD + Atomic Design), enforced via CI dependency rules.
 <br/>
 *Result:* boundary violations fail the build — decay is structurally prevented, not just discouraged.
+
+</td><td width="50%" valign="top">
+
+**An internal tool that outgrew its creator**
+<br/><br/>
+*Problem:* AI-agent skills were scattered across individual engineers' setups — no shared, browsable org knowledge.
+<br/>
+*Approach:* built QBrain — a PR-based skill registry, browsable graph, and a no-git "Add Skill" app for non-engineers.
+<br/>
+*Result:* adopted by multiple engineers within its first month, now the org's shared source of truth.
 
 </td></tr>
 </table>
